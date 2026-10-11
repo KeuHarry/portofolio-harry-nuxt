@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "title": "Harry Keumezeu, ingénieur logiciel senior",
+    "description": "Ingénieur full-stack senior, plus de 7 ans d’expérience sur des interfaces rapides et accessibles et des API bien testées. Basé à Accra, en télétravail avec des équipes en Europe et au-delà."
+  },
+  "skip": "Aller au contenu",
+  "nav": {
+    "label": "Principale",
+    "home": "Harry Keumezeu, retour en haut",
+    "about": "À propos",
+    "experience": "Parcours",
+    "project": "Projets",
+    "contact": "Contact",
+    "switchTo": "Read in English",
+    "switchShort": "EN"
+  },
+  "hero": {
+    "remote": "Basé à Accra, au Ghana. En télétravail avec des équipes parisiennes depuis 2021.",
+    "email": "M’écrire",
+    "portraitAlt": "Portrait de Harry Keumezeu"
+  },
+  "sections": {
+    "about": "À propos",
+    "experience": "Parcours",
+    "skills": "Compétences",
+    "credentials": "Formation et certifications",
+    "contact": "Contact",
+    "projects": "Projets"
+  },
+  "experience": {
+    "stack": "Technologies",
+    "graphNote": "Postes dans l’ordre, du plus récent au plus ancien. Les deux postes chez The Coding Machine forment leur propre branche."
+  },
+  "credentials": {
+    "education": "Formation",
+    "certifications": "Certifications"
+  },
+  "contact": {
+    "lead": "Le plus simple pour me joindre, c’est l’e-mail. Vous me trouverez aussi sur LinkedIn et GitHub.",
+    "copy": "Copier l’adresse",
+    "copied": "Copiée",
+    "copyFailed": "Sélectionnez l’adresse pour la copier",
+    "copiedAddress": "Adresse {email} copiée dans le presse-papiers",
+    "cta": "Vous recrutez un ingénieur senior ou préparez une nouvelle plateforme ? Parlons-en."
+  },
+  "footer": {
+    "top": "Retour en haut"
+  },
+  "error": {
+    "title": "Cette page n’existe pas",
+    "body": "Le lien est peut-être erroné, ou la page a été déplacée.",
+    "home": "Retour à l’accueil"
+  },
+  "projects": {
+    "intro": "Des plateformes réalisées pour des entreprises de la sécurité réseau, des infrastructures, de l’habitat, de la santé et d’autres secteurs, ainsi que mes propres produits.",
+    "tabsLabel": "Filtrer les projets",
+    "tabs": {
+      "all": "Tous",
+      "professional": "Professionnels",
+      "personal": "Personnels"
+    },
+    "role": "Mon rôle",
+    "type": {
+      "webapp": "Application web",
+      "website": "Site web"
+    },
+    "visit": "Voir {name}"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "portofolio-harry-nuxt",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@11.3.0",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port 3400",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
+    "test:a11y": "node scripts/a11y.mjs",
+    "og": "node scripts/og-image.mjs",
+    "logo": "node scripts/face-logo.mjs"
+  },
+  "dependencies": {
+    "@fontsource/lato": "^5.3.0",
+    "@iconify-json/lucide": "^1.2.142",
+    "@iconify-json/simple-icons": "^1.2.99",
+    "@nuxt/icon": "^2.5.1",
+    "@nuxtjs/i18n": "^10.6.0",
+    "@nuxtjs/robots": "^6.2.4",
+    "@nuxtjs/sitemap": "^8.6.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "nuxt": "^4.6.1",
+    "tailwindcss": "^4.3.3",
+    "vue": "^3.5.43",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@nuxt/eslint": "^1.17.0",
+    "@playwright/test": "^1.64.0",
+    "eslint": "^10.12.0",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.12"
+  }
+}
