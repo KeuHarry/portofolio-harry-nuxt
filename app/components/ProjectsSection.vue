@@ -12,7 +12,39 @@ const tabs = computed(() => (['all', 'professional', 'personal'] as const).map(i
 })))
 
 const active = ref<TabId>('all')
-const visible = computed(() => (active.value === 'all' ? projects : projects.filter(p => p.kind === active.value)))
+const filtered = computed(() => (active.value === 'all' ? projects : projects.filter(p => p.kind === active.value)))
+
+// Pagination: a page-size picker and numbered pages, back to page 1 whenever the set changes
+const pageSizes = [10, 20, 30, 40, 50] as const
+const pageSize = ref<number>(pageSizes[0])
+const page = ref(1)
+const pageCount = computed(() => Math.max(1, Math.ceil(filtered.value.length / pageSize.value)))
+const visible = computed(() => filtered.value.slice((page.value - 1) * pageSize.value, page.value * pageSize.value))
+const range = computed(() => ({
+  from: filtered.value.length ? (page.value - 1) * pageSize.value + 1 : 0,
+  to: Math.min(page.value * pageSize.value, filtered.value.length),
+  total: filtered.value.length,
+}))
+watch([active, pageSize], () => {
+  page.value = 1
+})
+
+// Changing page from the pager below the cards brings the top of the new page into view,
+// once the old page has left and the list has its new height
+const panel = useTemplateRef<HTMLElement>('panel')
+let scrollAfterSwap = false
+function goTo(target: number) {
+  if (target < 1 || target > pageCount.value || target === page.value) return
+  page.value = target
+  scrollAfterSwap = true
+}
+function onAfterLeave() {
+  if (!scrollAfterSwap) return
+  scrollAfterSwap = false
+  nextTick(() => {
+    if ((panel.value?.getBoundingClientRect().top ?? 0) < 0) panel.value?.scrollIntoView({ block: 'start' })
+  })
+}
 
 // Tabs follow the WAI-ARIA pattern: arrow keys move focus and select, Home/End jump
 const tabEls = useTemplateRef<HTMLButtonElement[]>('tabEls')
@@ -88,15 +120,18 @@ function toggle(id: string) {
 
       <div
         id="projects-panel"
+        ref="panel"
         role="tabpanel"
+        class="panel"
         :aria-labelledby="`projects-tab-${active}`"
       >
         <Transition
           name="swap"
           mode="out-in"
+          @after-leave="onAfterLeave"
         >
           <ul
-            :key="active"
+            :key="`${active}-${pageSize}-${page}`"
             class="grid"
           >
             <li
@@ -172,7 +207,7 @@ function toggle(id: string) {
                     <a
                       v-if="project.url"
                       :href="project.url"
-                      class="link font-bold"
+                      class="link visit font-bold"
                       target="_blank"
                       rel="noopener"
                     >{{ t('projects.visit', { name: l(project.title) }) }}</a>
@@ -182,6 +217,65 @@ function toggle(id: string) {
             </li>
           </ul>
         </Transition>
+
+        <div class="pager">
+          <PageSizeSelect
+            v-model="pageSize"
+            :options="pageSizes"
+            :label="t('projects.perPage')"
+          />
+
+          <p
+            class="showing"
+            aria-live="polite"
+          >
+            {{ t('projects.showing', range) }}
+          </p>
+
+          <nav
+            v-if="pageCount > 1"
+            class="pages"
+            :aria-label="t('projects.pagination')"
+          >
+            <button
+              type="button"
+              class="page-btn"
+              :disabled="page === 1"
+              :aria-label="t('projects.previous')"
+              @click="goTo(page - 1)"
+            >
+              <Icon
+                name="lucide:chevron-left"
+                class="size-4"
+                aria-hidden="true"
+              />
+            </button>
+            <button
+              v-for="n in pageCount"
+              :key="n"
+              type="button"
+              class="page-btn"
+              :aria-current="n === page ? 'page' : undefined"
+              :aria-label="t('projects.page', { n })"
+              @click="goTo(n)"
+            >
+              {{ n }}
+            </button>
+            <button
+              type="button"
+              class="page-btn"
+              :disabled="page === pageCount"
+              :aria-label="t('projects.next')"
+              @click="goTo(page + 1)"
+            >
+              <Icon
+                name="lucide:chevron-right"
+                class="size-4"
+                aria-hidden="true"
+              />
+            </button>
+          </nav>
+        </div>
       </div>
     </div>
   </section>
@@ -408,9 +502,77 @@ function toggle(id: string) {
   color: var(--color-petrol);
 }
 
+.visit {
+  font-size: 0.875rem;
+}
+
 .foot .stack-list {
   font-size: 0.875rem;
   gap: 0.125rem 0.75rem;
+}
+
+/* Pagination */
+.panel {
+  scroll-margin-top: 6rem;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-slate);
+}
+
+.showing {
+  font-variant-numeric: tabular-nums;
+}
+
+.pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-left: auto;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  background: var(--color-paper);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms var(--ease-out);
+}
+
+.page-btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.page-btn[aria-current='page'] {
+  background: var(--color-petrol);
+  border-color: var(--color-petrol);
+  color: #fff;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .page-btn:not(:disabled):not([aria-current='page']):hover {
+    border-color: var(--color-petrol);
+    color: var(--color-petrol);
+  }
 }
 
 /* Switching tabs: the old set fades out quickly, the new one settles in */

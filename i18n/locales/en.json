@@ -29,7 +29,10 @@
   },
   "experience": {
     "stack": "Stack",
-    "graphNote": "Roles in order, newest first. The two roles at The Coding Machine sit on their own branch."
+    "graphNote": "Roles in order, newest first. The two roles at The Coding Machine sit on their own branch.",
+    "reference": "Reference",
+    "email": "Email {name}",
+    "call": "Call {name}"
   },
   "credentials": {
     "education": "Education",
@@ -64,6 +67,12 @@
       "webapp": "Web application",
       "website": "Website"
     },
-    "visit": "Visit {name}"
+    "visit": "Visit {name}",
+    "perPage": "Projects per page",
+    "pagination": "Projects pages",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {n}",
+    "showing": "{from}–{to} of {total}"
   }
 }
