@@ -54,6 +54,14 @@ export const facts: { label: Localized, value: Localized }[] = [
   },
 ]
 
+export interface Reference {
+  name: string
+  title: Localized
+  place: Localized
+  email: string
+  phone: string
+}
+
 export interface Role {
   id: string
   title: Localized
@@ -63,6 +71,8 @@ export interface Role {
   end: string // YYYY-MM
   points: Localized[]
   stack: string[]
+  // Someone who can vouch for this role; set on one role per company
+  reference?: Reference
   // Commit-graph placement: lane 0 is the main line, lane 1 a branch.
   lane: 0 | 1
   mergesAbove?: boolean
@@ -89,6 +99,13 @@ export const experience: Role[] = [
       },
     ],
     stack: ['React', 'Nest.js', 'Go', 'Python', 'PostgreSQL', 'MongoDB', 'ClickHouse', 'Neo4j', 'Airflow'],
+    reference: {
+      name: 'Sid Ahmed Djellali',
+      title: { en: 'Founder & Managing Director, Cyberdian Group', fr: 'Fondateur et directeur général, Cyberdian Group' },
+      place: { en: 'Paris', fr: 'Paris' },
+      email: 's.djellali@cyberdian.fr',
+      phone: '+33 6 10 20 62 49',
+    },
     lane: 0,
   },
   {
@@ -109,6 +126,13 @@ export const experience: Role[] = [
       },
     ],
     stack: ['Symfony', 'Vue.js', 'MySQL', 'Docker', 'Cypress', 'Bryntum', 'Matomo', 'k6'],
+    reference: {
+      name: 'Sonia Mnif',
+      title: { en: 'Project Manager, The Coding Machine', fr: 'Cheffe de projet, The Coding Machine' },
+      place: { en: 'Paris', fr: 'Paris' },
+      email: 's.mnif@thecodingmachine.com',
+      phone: '+33 7 68 95 71 67',
+    },
     lane: 1,
     mergesAbove: true,
   },
@@ -151,6 +175,13 @@ export const experience: Role[] = [
       },
     ],
     stack: ['Laravel', 'Angular', 'AngularJS', 'MySQL'],
+    reference: {
+      name: 'Inoussa Aoudi',
+      title: { en: 'General Manager, Pether Solutions', fr: 'Directeur général, Pether Solutions' },
+      place: { en: 'Douala', fr: 'Douala' },
+      email: 'inoussa.aoudi@pethersolutions.com',
+      phone: '+237 6 56 88 41 73',
+    },
     lane: 0,
   },
 ]
@@ -296,6 +327,19 @@ export const projects: Project[] = [
     stack: ['Laravel', 'Angular', 'OHIF Viewer'],
   },
   {
+    id: 'ela',
+    title: 'Excellence Language Academy',
+    context: { en: 'Excellence Language Academy, Accra', fr: 'Excellence Language Academy, Accra' },
+    kind: 'professional',
+    type: 'website',
+    summary: {
+      en: 'Bilingual website for a language school in Accra, with its English, French and German courses, campuses, enrolment and hostel room reservations.',
+      fr: 'Site bilingue d’une école de langues à Accra, avec ses cours d’anglais, de français et d’allemand, ses campus, les inscriptions et la réservation de chambres en résidence.',
+    },
+    stack: ['Next.js'],
+    url: 'https://ela-gh.com/en',
+  },
+  {
     id: 'geartrove',
     title: 'GearTrove',
     context: { en: 'Personal project', fr: 'Projet personnel' },
@@ -306,6 +350,7 @@ export const projects: Project[] = [
       fr: 'Boutique en ligne conceptuelle de pièces et accessoires auto, avec garage de véhicules, panier et tunnel de commande.',
     },
     stack: ['Next.js', 'TypeScript'],
+    url: 'https://gear-trove.keuharry.dev/',
   },
   {
     id: 'harry-co',
@@ -318,6 +363,20 @@ export const projects: Project[] = [
       fr: 'Site conceptuel pour un cabinet d’avocats d’affaires, avec domaines d’expertise, profils de l’équipe et articles.',
     },
     stack: ['Nuxt', 'TypeScript'],
+    url: 'https://harryco.keuharry.dev/',
+  },
+  {
+    id: 'arise',
+    title: 'Arise',
+    context: { en: 'Personal project', fr: 'Projet personnel' },
+    kind: 'personal',
+    type: 'website',
+    summary: {
+      en: 'Concept website for a real estate company renting architect-designed homes, with city filters, viewing bookings and interactive 3D floor models.',
+      fr: 'Site conceptuel pour une agence immobilière qui loue des maisons d’architecte, avec filtres par ville, réservation de visites et modèles 3D interactifs des étages.',
+    },
+    stack: ['Next.js', 'Three.js'],
+    url: 'https://arise.keuharry.dev/',
   },
 ]
 

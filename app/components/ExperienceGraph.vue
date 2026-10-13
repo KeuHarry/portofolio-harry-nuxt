@@ -88,6 +88,31 @@ const { l, month } = useLocalized()
                 :key="tech"
               >{{ tech }}</span>
             </p>
+            <aside
+              v-if="role.reference"
+              class="reference"
+              :aria-label="`${t('experience.reference')}, ${role.company}`"
+            >
+              <p class="reference-label">
+                {{ t('experience.reference') }}
+              </p>
+              <p>
+                <span class="font-bold text-ink">{{ role.reference.name }}</span>,
+                {{ l(role.reference.title) }}, {{ l(role.reference.place) }}
+              </p>
+              <p class="reference-contact">
+                <a
+                  :href="`mailto:${role.reference.email}`"
+                  class="link"
+                  :aria-label="t('experience.email', { name: role.reference.name })"
+                >{{ role.reference.email }}</a>
+                <a
+                  :href="`tel:${role.reference.phone.replace(/\s/g, '')}`"
+                  class="link tabular-nums"
+                  :aria-label="t('experience.call', { name: role.reference.name })"
+                >{{ role.reference.phone }}</a>
+              </p>
+            </aside>
           </article>
         </li>
       </ol>
@@ -261,6 +286,33 @@ const { l, month } = useLocalized()
 .points li {
   position: relative;
   padding-left: 1.125rem;
+}
+
+.reference {
+  margin-top: 1rem;
+  max-width: 64ch;
+  padding: 0.875rem 1rem;
+  border-left: 2px solid var(--line);
+  background: color-mix(in srgb, var(--color-petrol) 5%, var(--color-paper));
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-size: 0.9375rem;
+  color: var(--color-slate);
+}
+
+.reference-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-petrol);
+}
+
+.reference-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-top: 0.25rem;
+  overflow-wrap: anywhere;
 }
 
 .points li::before {

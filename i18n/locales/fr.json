@@ -29,7 +29,10 @@
   },
   "experience": {
     "stack": "Technologies",
-    "graphNote": "Postes dans l’ordre, du plus récent au plus ancien. Les deux postes chez The Coding Machine forment leur propre branche."
+    "graphNote": "Postes dans l’ordre, du plus récent au plus ancien. Les deux postes chez The Coding Machine forment leur propre branche.",
+    "reference": "Référence",
+    "email": "Écrire à {name}",
+    "call": "Appeler {name}"
   },
   "credentials": {
     "education": "Formation",
@@ -64,6 +67,12 @@
       "webapp": "Application web",
       "website": "Site web"
     },
-    "visit": "Voir {name}"
+    "visit": "Voir {name}",
+    "perPage": "Projets par page",
+    "pagination": "Pages des projets",
+    "previous": "Page précédente",
+    "next": "Page suivante",
+    "page": "Page {n}",
+    "showing": "{from}–{to} sur {total}"
   }
 }
